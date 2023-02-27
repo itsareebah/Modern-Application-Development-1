@@ -1,4 +1,5 @@
-# INQUIZ
+# INQUIZ : Modern-Application-Development-1
+A first trial in web app development, A flashcard learning application
 
 Inquiz is a python web application for flashcard learning system.
 This application contain various decks to learn from along with the option for user to add and create their own deck to learn.
@@ -31,7 +32,3 @@ sarah
 ```
 rayyan
 ```
-
-
-## Contact
-mail : 21f1005421@student.onlinedegree.iitm.ac.in
