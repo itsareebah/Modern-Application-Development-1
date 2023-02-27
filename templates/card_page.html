@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <title>Learning</title>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow p-2 rounded" style="background-color: #ece9e9;">
+        <div class="container" >
+            <div class="row p-1 mb-1 text-light col-1">
+                <img src="../../static/icon.png" alt="" height="50" >
+            </div>
+            <h4 class="p-1 mb-1 text-dark col-8"><img src="../../static/name.png" alt="" height="50"></h4>
+            <div class="btn-group col-3">
+                <a class="me-2 btn btn-sm btn-outline-dark" href="/dashboard" role="button">Dashboard</a>
+                <a class="btn btn-sm btn-outline-dark" href="/logout" role="button">Log Out</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container-fluid ">
+        <div class="row ">
+            <div class="col-3 text-light fixed-left text-center" style="background-color: #310a0a;">
+              <div class="p-4 col-10">
+                <div class="h3 display-6">{{ n['deck_id'] }} <br> {{ n["deck_name"] }}</div><br>
+                <div class="d-grid gap-2">
+                    <a class="btn btn-outline-light mt-2 p-2" href="/dashboard/{{ m['deck_id'] }}/study/{{ m['card_id'] }}/edit" role="button">Edit</a>
+                    <a class="btn btn-outline-light mt-2 p-2" id="delete" href="/dashboard/{{ m['deck_id'] }}/study/{{ m['card_id'] }}/delete" role="button">Delete</a>
+                    <a class="btn btn-outline-light mt-2 p-2" href="/dashboard/{{ m['deck_id'] }}/study/add" role="button">Add Cards</a>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-9 p-3 bg-white rounded-3">
+                <div class="col-12 p-3 bg-light rounded-3 " style="margin: 1px;">
+                    <div class="col-12 p-3 bg-white rounded-3 " style="margin: 0%;">
+                        <div class="col-12 p-3 bg-light rounded-3 justify-content-center" style="margin: 0%;">
+                            
+                            <div class="mt-4" style="margin-right: 5%; margin-left: 5%; margin-bottom: 120px;" id="question" >
+                                <div class="card text-center"  >
+                                    <div class="card-header">{{ f }}</div>
+                                    <div class="card-body">
+                                      <h5 class="card-title">{{ m['front'] }}</h5>
+                                    </div>
+                                  </div><br><br>
+                                  <div class="col-md-3 offset-md-0 rounded-3" style="background-color: #310a0a; margin-top: 1%; padding:2px ;">
+                                    <button class="btn btn-sm btn-outline-light col-12 rounded-3 hell" id="answer_button" type="button">Show Answer</button>
+                                </div>
+                            </div>
+                            
+                            
+                                <div>
+                                    <div class="mt-4" style="margin-left: 5%; margin-right: 5%; display: none;" id="ans" >
+                                        <div class="card text-center" style="max-width: 100%;">
+                                            <div class="card-header">{{ f }}</div>
+                                            <div class="card-body text-dark">
+                                              <h5 class="card-title">{{ m['front'] }}</h5><hr>
+                                              <h6 class="card-title">{{ m['back'] }}</h6>
+                                            </div>
+                                        </div>
+                                        <br>
+                    
+                    
+                                    <form  id="answer-form" action="/dashboard/{{ m['deck_id'] }}/study" method="post" onsubmit="validate(event)">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="answer" id="Radior" value="right" required>
+                                            <label class="form-check-label" for="Radior">I got it Right :)</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="answer" id="Radiow" value="wrong">
+                                            <label class="form-check-label" for="Radiow">Wrong Answer :(</label>
+                                        </div>
+                                        
+                    
+                                        <div class="rounded-3" style="text-align: left; background-color: lightgray; padding: 1%; margin-top: 3%;">
+                                            <p style="font-weight: bold;">How would you rate the question</p>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="review" id="inlineRadio1" value="easy" required>
+                                                    <label class="form-check-label" for="inlineRadio1">Easy</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="review" id="inlineRadio2" value="good">
+                                                    <label class="form-check-label" for="inlineRadio2">Good</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="review" id="inlineRadio3" value="hard">
+                                                    <label class="form-check-label" for="inlineRadio3">Hard</label>
+                                                </div>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-3 offset-md-9 rounded-3" style="background-color: #310a0a; margin-top: 1%; padding:2px ;">
+                                            <button class="btn btn-sm btn-outline-light col-12 rounded-3" type="submit" role="button">Next Card</button></div>
+                    
+                                        </form>
+                                    </div>
+                                </div> 
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+        
+        <div class="d-flex flex-row-reverse fixed-bottom bg-light">
+            <div class="p-1 mt-1">&copy; copyright 2021</div>
+         </div>
+    </div>
+
+    
+</body>
+<script type="text/javascript" >
+    answer()
+</script>
+</html>
